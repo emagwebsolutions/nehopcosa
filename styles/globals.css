@@ -17,12 +17,10 @@ img {
   display: block;
   max-width: 100%;
 }
-.container{
-  margin-inline: 3em; 
+.container {
+  margin-inline: 3em;
 }
-a{
+a {
   text-decoration: none;
 }
-.active{
-  font-size: 6rem!important;
-}
+

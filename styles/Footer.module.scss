@@ -1,0 +1,20 @@
+@import 'config.scss';
+
+.footer{
+    padding-block: 4em;
+    & > div{
+        display: flex;
+         div{
+            flex-grow: 1; 
+            flex-shrink: 1;
+        }
+        & > div:nth-of-type(1){
+            flex-basis: 3rem;
+            background-color: yellow;
+        }
+        & > div:nth-of-type(2){
+            flex-basis: 6rem;
+            background-color: red;
+        }
+    }
+}
