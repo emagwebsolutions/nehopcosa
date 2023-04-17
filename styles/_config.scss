@@ -1,0 +1,7 @@
+$warning: #f89925;
+$danger: #f1562a;
+$white: #fff;
+
+@function blackOpacity($v: 1) {
+  @return rgba(0, 0, 0, $v);
+}

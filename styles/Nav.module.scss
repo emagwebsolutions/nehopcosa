@@ -1,0 +1,22 @@
+@import "config.scss";
+.nav{
+    background-color: $white;
+    box-shadow: 1rem 1rem 2rem 0 blackOpacity(0.1);
+    div{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        ul{
+            display: flex;
+            list-style: none;
+            gap: 2em;
+            li{
+                a{
+                    font-weight: 400;
+                }
+            }
+        
+        }
+    }
+}
+
