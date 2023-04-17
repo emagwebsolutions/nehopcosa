@@ -1,20 +1,69 @@
 @import 'config.scss';
 
-.footer{
-    padding-block: 4em;
-    & > div{
-        display: flex;
-         div{
-            flex-grow: 1; 
-            flex-shrink: 1;
-        }
-        & > div:nth-of-type(1){
-            flex-basis: 3rem;
-            background-color: yellow;
-        }
-        & > div:nth-of-type(2){
-            flex-basis: 6rem;
-            background-color: red;
-        }
+.footer {
+  padding-top: 4em;
+  & > div:nth-of-type(1) {
+    display: flex;
+    gap: 4em;
+    div {
+      flex-grow: 1;
+      flex-shrink: 1;
     }
+    & > div:nth-of-type(1) {
+      div {
+        flex-basis: 20rem;
+        flex-grow: 0;
+        padding-block: 4em;
+        h4 {
+          color: $text-color;
+        }
+      }
+      flex-basis: 20rem;
+      background-color: $grey;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    & > div:nth-of-type(2) {
+      flex-basis: 50rem;
+
+      & > div:nth-of-type(1) {
+        display: flex;
+        gap: 3em;
+        margin-bottom: 4em;
+        h4 {
+          color: $text-color;
+        }
+        div {
+          flex: 1rem 1 1;
+        }
+      }
+      & > div:nth-of-type(2) {
+        display: flex;
+        justify-content: space-between;
+        a {
+          color: $text-color;
+          text-align: center;
+        }
+        i {
+          width: 11rem;
+          height: 11rem;
+          border-radius: 50%;
+          border: solid 0.1rem $text-color;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 3rem;
+          &:hover {
+            color: $warning;
+            border: solid 0.1rem $warning;
+          }
+        }
+      }
+    }
+  }
+  & > div:nth-of-type(2) {
+    text-align: center;
+    padding-block: 4em;
+  }
 }

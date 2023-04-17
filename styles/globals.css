@@ -23,4 +23,18 @@ img {
 a {
   text-decoration: none;
 }
+.dash {
+  width: 3rem;
+  border-bottom: solid 1px black;
+  margin-bottom: 1em;
+  display: inline-block;
+  margin-top: .7rem;
+}
 
+h2 {
+  font-size: 3rem;
+}
+
+h4 {
+  font-size: 2rem;
+}

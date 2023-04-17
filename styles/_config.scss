@@ -1,6 +1,8 @@
 $warning: #f89925;
 $danger: #f1562a;
 $white: #fff;
+$grey: #efefef;
+$text-color: #777;
 
 @function blackOpacity($v: 1) {
   @return rgba(0, 0, 0, $v);
