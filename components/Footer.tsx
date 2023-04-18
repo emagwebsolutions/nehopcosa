@@ -14,9 +14,7 @@ const Footer = () => {
         </div>
         <div>
 
-
           <div>
-
 
             <div>
               <h4>Address</h4>
