@@ -76,3 +76,13 @@ h4 {
     color: $text-color;
   }
 }
+
+
+@media(max-width: 35em){
+  .hide{
+  left: -100%;
+}
+.show{
+  left: 0;
+}
+}
