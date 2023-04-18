@@ -8,7 +8,7 @@ const Nav = () => {
   return (
     <nav className={styles.nav}>
 
-      <Image src="/menu.jpg" alt="" className="menu" width="70" height="70" onClick={()=> setContainer('show') } />
+      <Image src="/menu.jpg" alt="" className="menu" width="40" height="40" onClick={()=> setContainer('show') } />
 
       <div className={`container ${container}`} >
         <div>
