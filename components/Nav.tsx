@@ -1,16 +1,22 @@
 import Image from 'next/image';
 import styles from '../styles/Nav.module.scss';
 import Link from 'next/link';
-import {useState} from 'react'
+import { useState } from 'react';
 
 const Nav = () => {
-  const [container,setContainer] = useState('hide')
+  const [container, setContainer] = useState('hide');
   return (
     <nav className={styles.nav}>
+      <Image
+        src="/menu.jpg"
+        alt=""
+        className="menu"
+        width="40"
+        height="40"
+        onClick={() => setContainer('show')}
+      />
 
-      <Image src="/menu.jpg" alt="" className="menu" width="40" height="40" onClick={()=> setContainer('show') } />
-
-      <div className={`container ${container}`} >
+      <div className={`container ${container}`}>
         <div>
           <Image alt="Logo" src="/logo.jpg" width="70" height="70" />
 
@@ -19,7 +25,7 @@ const Nav = () => {
               <Link href="/">Home</Link>
             </li>
             <li>
-              <Link href="/">About</Link>
+              <Link href="/about">About</Link>
             </li>
             <li>
               <Link href="/">Blog</Link>
@@ -30,7 +36,7 @@ const Nav = () => {
           </ul>
         </div>
 
-        <div onClick={()=> setContainer('hide') }></div>
+        <div onClick={() => setContainer('hide')}></div>
       </div>
     </nav>
   );

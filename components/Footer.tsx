@@ -19,12 +19,12 @@ const Footer = () => {
             <div>
               <h4>Address</h4>
               <span className="dash"></span>
-              <p>500 Terry Francine St. San Francisco, CA 94158</p>
+              <p>P.O.BOX YB 366, Asuoyeboah - Kumasi</p>
             </div>
             <div>
               <h4>Phone</h4>
               <span className="dash"></span>
-              <p>+233 20 334 443</p>
+              <p>(+233) 03220 50646</p>
             </div>
             <div>
               <h4>Email</h4>
