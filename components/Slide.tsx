@@ -1,7 +1,7 @@
 import { Fade } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import Image from 'next/image';
-import { arr } from '../typings';
+import { arr } from '@/typings';
 
 const Slide = ({ arr }: arr) => {
   const fadeImages = Object.values(arr).map((v) => ({

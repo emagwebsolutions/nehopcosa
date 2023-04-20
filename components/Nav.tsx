@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import styles from '../styles/Nav.module.scss';
+import styles from '@/styles/Nav.module.scss';
 import Link from 'next/link';
 import { useState } from 'react';
 
