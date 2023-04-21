@@ -25,14 +25,44 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { wrapper } from '@/store/store';
 
-export default function Home({ data }: any) {
-  const postState = useSelector(selectPostState);
+function Home({ data }: any) {
+  const dispatch = useDispatch();
+  const payload = useSelector((state: any) => state.data.data.allInfo);
+
+  //SLIDER
+  dispatch(sliders(payload));
+
+  //PROFILE
+  dispatch(profiles(payload));
+  const { img, title } = useSelector(selectProfileState);
+
+  //WHO WE ARE
+  dispatch(pages(payload));
+
+  
+  const whoweare = useSelector(selectPageState);
+
+  const who  = Object.values(whoweare).filter((v: any) => v.slug === 'who-we-are').map((v: any) => ({
+    title: v.title,
+    img: v.img,
+    text: v.text
+  }))[0]
+
+
+
+
+  //POSTS
+  dispatch(posts(payload));
+  const featuredposts = useSelector(selectPostState);
+
+  //CONTACT
+  dispatch(contacts(payload));
 
   return (
     <>
       <section className={styles.header}>
         <div className={styles.slider}>
-          <Slide arr={slider} />
+          <Slide />
         </div>
         <div className={styles.profile}>
           <div>
@@ -60,12 +90,12 @@ export default function Home({ data }: any) {
       <section className={styles.whoweare}>
         <div className="container">
           <div>
-            <Image src={whoweareImg} width="560" height="400" alt="" />
+            <Image src={who.img} width="560" height="400" priority alt="" />
           </div>
           <div>
-            <h1>{whowearetitle}</h1>
+            <h1>{who.title}</h1>
 
-            <div>{text}</div>
+            <div>{who.text}</div>
 
             <Link href="" className="button">
               Learn More
@@ -95,7 +125,7 @@ export default function Home({ data }: any) {
         <h4>Our Blog</h4>
         <h2>Recent From Blog</h2>
 
-        <div className="container">{posts}</div>
+        <div className="container">{featuredposts}</div>
       </section>
     </>
   );
@@ -105,34 +135,34 @@ export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
     async ({ params }) => {
       const data = await client.fetch(`
-            *[
-              _type == 'post' ||
-              _type == 'pages' ||
-              _type == 'social' ||
-              _type == 'slider' ||
-              _type == 'logo' ||
-              _type == 'profile' ||
-              _type == 'contact' 
-            ]{
-              _id,
-              title,
-              _type,
-              createdAt,
-              mainImage,
-              body,
-              slug,
-              address,
-              email,
-              location,
-              mobile1,
-              mobile2,
-              mobile3,
-              mobile4,
-              excerpt
-            }
-          `);
+        *[
+          _type == 'post' ||
+          _type == 'pages' ||
+          _type == 'social' ||
+          _type == 'slider' ||
+          _type == 'logo' ||
+          _type == 'profile' ||
+          _type == 'contact' 
+        ]{
+          _id,
+          title,
+          _type,
+          createdAt,
+          mainImage,
+          body,
+          slug,
+          address,
+          email,
+          location,
+          mobile1,
+          mobile2,
+          mobile3,
+          mobile4,
+          excerpt
+        }
+      `);
 
-      await store.dispatch(allInfos(data));
+      store.dispatch(allInfos(data));
 
       return {
         props: {
@@ -141,3 +171,5 @@ export const getServerSideProps = wrapper.getServerSideProps(
       };
     }
 );
+
+export default Home;

@@ -1,7 +1,13 @@
 import Image from 'next/image';
 import styles from '@/styles/Footer.module.scss';
+import { useSelector } from 'react-redux';
+import { selectContactState } from '@/store/store';
 
 const Footer = () => {
+  const { address, email, mobile1, mobile2 } = useSelector(selectContactState);
+
+
+
   return (
     <footer className={styles.footer}>
       <div className="container">
@@ -13,26 +19,24 @@ const Footer = () => {
           </div>
         </div>
         <div>
-
           <div>
-
             <div>
               <h4>Address</h4>
               <span className="dash"></span>
-              <p>P.O.BOX YB 366, Asuoyeboah - Kumasi</p>
+              <p>{address}</p>
             </div>
             <div>
               <h4>Phone</h4>
               <span className="dash"></span>
-              <p>(+233) 03220 50646</p>
+              <p>{mobile1}</p>
+              <p>{mobile2}</p>
             </div>
             <div>
               <h4>Email</h4>
               <span className="dash"></span>
-              <p>info@nehopcosa.org</p>
+              <p>{email}</p>
             </div>
           </div>
-
 
           <div>
             <a href="">
@@ -52,11 +56,8 @@ const Footer = () => {
               Youtube
             </a>
           </div>
-
-
         </div>
       </div>
-
 
       <div className="container">&copy; 2023 NEHOPCOSA</div>
     </footer>

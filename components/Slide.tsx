@@ -1,12 +1,12 @@
 import { Fade } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import Image from 'next/image';
-import { arr } from '@/typings';
+import {slides} from '@/typings'
+import { useSelector } from 'react-redux';
+import { selectSliderState } from '@/store/store';
 
-const Slide = ({ arr }: arr) => {
-  const fadeImages = Object.values(arr).map((v) => ({
-    url: `${v}`,
-  }));
+const Slide = () => {
+  const fadeImages: slides = useSelector(selectSliderState);
 
   return (
     <div className="slide-container">

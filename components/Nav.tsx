@@ -5,20 +5,21 @@ import { useState } from 'react';
 
 const Nav = () => {
   const [container, setContainer] = useState('hide');
+
   return (
     <nav className={styles.nav}>
       <Image
         src="/menu.jpg"
         alt=""
         className="menu"
-        width="40"
-        height="40"
+        width="30"
+        height="30"
         onClick={() => setContainer('show')}
       />
 
       <div className={`container ${container}`}>
         <div>
-          <Image alt="Logo" src="/logo.jpg" width="70" height="70" />
+          <Image src="/logo.jpg" alt="Logo" width="70" height="70" />
 
           <ul>
             <li>
