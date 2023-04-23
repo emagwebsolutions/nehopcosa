@@ -18,7 +18,7 @@ export type query = {
   createdAt?: string;
   mainImage: string;
   body: [];
-  slug: {current: string};
+  slug: { current: string };
   address: string;
   email: string;
   location: string;
@@ -30,18 +30,18 @@ export type query = {
 };
 
 export type payload = {
-  payload: query[]
-}
+  payload: query[];
+};
+
+export type serverSideData = {
+  data: any;
+};
 
 export type initState = {
   homepage: '';
   post: any;
 
-  page: {
-    img: string;
-    title: string;
-    text: string;
-  }[];
+  page: any;
 
   social: {
     img: string;

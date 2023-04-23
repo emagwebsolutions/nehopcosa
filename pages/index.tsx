@@ -8,20 +8,22 @@ import {
   selectPageState,
   selectPostState,
   selectProfileState,
+  selectSocialState,
 } from '@/store/store';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { client } from '@/client/client';
-import { useEffect, useState } from 'react';
 
 function Home({ data }: any) {
   const dispatch = useDispatch();
 
   dispatch(homepage(data));
 
+  //PROFILE DETAILS
   const { img, title } = useSelector(selectProfileState);
   const whoweare = useSelector(selectPageState);
 
+  //WHO WE ARE DETAILS
   const who = Object.values(whoweare)
     .filter((v: any) => v.slug === 'who-we-are')
     .map((v: any) => ({
@@ -30,11 +32,20 @@ function Home({ data }: any) {
       text: v.text,
     }))[0];
 
-  //POSTS
-
+  //FEATURED POST DETAILS
   const featuredposts = useSelector(selectPostState);
 
-  //CONTACT
+  //SOCIAL ICONS
+  const socialicons = useSelector(selectSocialState);
+
+  const social = Object.values(socialicons).map((v: any, k: number) => {
+    const fa = v.title.toLowerCase();
+    return (
+      <a href={v.slug} key={k}>
+        <i className={`fa fa-${fa}`}></i>
+      </a>
+    );
+  });
 
   return (
     <>
@@ -45,22 +56,9 @@ function Home({ data }: any) {
         <div className={styles.profile}>
           <div>
             <Image src={img} alt="" width="196" height="200" />
-            <p>{title}</p>
-            <h3>(C.E.O)</h3>
-            <div className={styles.social}>
-              <a href="">
-                <i className="fa fa-facebook"></i>
-              </a>
-              <a href="">
-                <i className="fa fa-instagram"></i>
-              </a>
-              <a href="">
-                <i className="fa fa-twitter"></i>
-              </a>
-              <a href="">
-                <i className="fa fa-youtube"></i>
-              </a>
-            </div>
+            <strong>{title}</strong>
+            <strong>(C.E.O)</strong>
+            <div className={styles.social}>{social}</div>
           </div>
         </div>
       </section>
@@ -118,6 +116,7 @@ export const getServerSideProps = async () => {
           _type == 'pages' ||
           _type == 'slider' ||
           _type == 'profile' ||
+          _type == 'social' ||
           _type == 'contact' 
         ]{
           title,

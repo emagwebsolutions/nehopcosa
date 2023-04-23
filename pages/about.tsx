@@ -1,19 +1,15 @@
 import React from 'react';
 import styles from '@/styles/About.module.scss';
 import { pages, selectPageState } from '@/store/store';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Image from 'next/image';
 import { client } from '@/client/client';
+import { serverSideData } from '@/typings';
 
-const About = ({data}: any) => {
+const About = ({ data }: any) => {
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
-
-
-
-
-    dispatch(pages(data));
-
+  dispatch(pages(data));
 
   const whoweare = useSelector(selectPageState);
 
@@ -31,7 +27,7 @@ const About = ({data}: any) => {
       title: v.title,
       img: v.img,
       body: v.body,
-      text: v.text
+      text: v.text,
     }))[0];
 
   const mission = Object.values(whoweare)
@@ -44,13 +40,12 @@ const About = ({data}: any) => {
 
   return (
     <div className={styles.about}>
-
       <section>
         <div>
-        <div className="dash"></div>
-        <h1>WHO</h1>
-        <h1>WE ARE</h1>
-        <div>{about.text}</div>
+          <div className="dash"></div>
+          <h1>WHO</h1>
+          <h1>WE ARE</h1>
+          <div>{about.text}</div>
         </div>
       </section>
 
@@ -65,16 +60,13 @@ const About = ({data}: any) => {
           </div>
         </div>
       </section>
-
     </div>
   );
 };
 
-
-
 export const getServerSideProps = async () => {
   const data = await client.fetch(`
-        *[_type == 'pages' || _type == 'contact']{
+        *[_type == 'pages' || _type == 'social' || _type == 'contact']{
           title,
           _type,
           mainImage,

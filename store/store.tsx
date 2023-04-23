@@ -2,7 +2,7 @@ import { configureStore, combineReducers, createSlice } from '@reduxjs/toolkit';
 import { builder } from '@/client/client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { initState,payload } from '@/typings';
+import { initState, payload } from '@/typings';
 import PortableText from 'react-portable-text';
 
 /*---------------------------
@@ -51,11 +51,26 @@ export const postSlice = createSlice({
           return v._type === 'slider';
         })
         .map((v) => {
-          const img = v.mainImage ? builder(v.mainImage) : '/logo.jpg';
+          const img = v.mainImage ? builder(v.mainImage) : '/noimage.jpg';
           return {
             url: `${img}`,
           };
         });
+      //SOCIAL
+      if (state.social.length < 1) {
+        state.social = Object?.values(arr)
+          .filter((v) => {
+            return v._type === 'social';
+          })
+          .map((v) => {
+            const img = v.mainImage ? builder(v.mainImage) : '/noimage.jpg';
+            return {
+              img,
+              title: v.title,
+              slug: v.slug?.current,
+            };
+          });
+      }
 
       //PROFILE
       state.profile = Object?.values(arr)
@@ -63,7 +78,7 @@ export const postSlice = createSlice({
           return v._type === 'profile';
         })
         .map((v) => {
-          const img = v.mainImage ? builder(v.mainImage) : '/logo.jpg';
+          const img = v.mainImage ? builder(v.mainImage) : '/noimage.jpg';
           return {
             img,
             title: v.title,
@@ -73,13 +88,12 @@ export const postSlice = createSlice({
 
       //WHO WE ARE
       if (state.page.length < 1) {
-
         state.page = Object?.values(arr)
           .filter((v) => {
             return v._type === 'pages';
           })
           .map((v) => {
-            const img = v.mainImage ? builder(v.mainImage) : '/logo.jpg';
+            const img = v.mainImage ? builder(v.mainImage) : '/noimage.jpg';
             return {
               img,
               title: v.title,
@@ -111,7 +125,6 @@ export const postSlice = createSlice({
               slug: v.slug?.current,
             };
           });
-
       }
 
       //POST
@@ -141,7 +154,7 @@ export const postSlice = createSlice({
         });
 
       //CONTACT
-      if (!Object.values(state.contact).some(v => v)) {
+      if (!Object.values(state.contact).some((v) => v)) {
         state.contact = Object?.values(arr)
           .filter((v) => {
             return v._type === 'contact';
@@ -168,7 +181,7 @@ export const postSlice = createSlice({
             return v._type === 'pages';
           })
           .map((v) => {
-            const img = v.mainImage ? builder(v.mainImage) : '/logo.jpg';
+            const img = v.mainImage ? builder(v.mainImage) : '/noimage.jpg';
             return {
               img,
               title: v.title,
@@ -203,7 +216,7 @@ export const postSlice = createSlice({
       }
 
       //CONTACT
-      if (!Object.values(state.contact).some(v => v)) {
+      if (!Object.values(state.contact).some((v) => v)) {
         state.contact = Object?.values(arr)
           .filter((v) => {
             return v._type === 'contact';
@@ -228,7 +241,6 @@ export const selectPageState = (state: any) => state.data.page;
 export const selectPostState = (state: any) => state.data.post;
 export const selectSocialState = (state: any) => state.data.social;
 export const selectSliderState = (state: any) => state.data.slider;
-export const selectLogoState = (state: any) => state.data.logo;
 export const selectProfileState = (state: any) => state.data.profile;
 export const selectContactState = (state: any) => state.data.contact;
 
