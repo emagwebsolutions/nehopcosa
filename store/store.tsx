@@ -1,12 +1,9 @@
 import { configureStore, combineReducers, createSlice } from '@reduxjs/toolkit';
-import { createWrapper, HYDRATE } from 'next-redux-wrapper';
-import { persistReducer, persistStore } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 import { builder } from '@/client/client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { allinfobj, initState } from '@/typings';
-import SetTransform from '@/components/SetTransform';
+import { initState,payload } from '@/typings';
+import PortableText from 'react-portable-text';
 
 /*---------------------------
 BEGIN CREATE STATE
@@ -14,25 +11,7 @@ BEGIN CREATE STATE
 
 // Initial state
 const initialState: initState = {
-  allInfo: [
-    {
-      _id: '',
-      title: '',
-      _type: '',
-      createdAt: '',
-      mainImage: '',
-      body: '',
-      slug: '',
-      address: '',
-      email: '',
-      location: '',
-      mobile1: '',
-      mobile2: '',
-      mobile3: '',
-      mobile4: '',
-      excerpt: '',
-    },
-  ],
+  homepage: '',
   post: [],
   page: [],
   social: [],
@@ -56,20 +35,86 @@ const initialState: initState = {
     mobile4: '',
   },
 };
-type payload = { payload: allinfobj };
+
 // Actual Slice
 export const postSlice = createSlice({
   name: 'data',
   initialState,
 
   reducers: {
-    allInfos(state, action) {
-      state.allInfo = action.payload;
-    },
-
-    posts(state, { payload }: payload) {
+    homepage: (state, { payload }: payload) => {
       const arr = payload || [];
 
+      //SLIDER
+      state.slider = Object?.values(arr)
+        .filter((v) => {
+          return v._type === 'slider';
+        })
+        .map((v) => {
+          const img = v.mainImage ? builder(v.mainImage) : '/logo.jpg';
+          return {
+            url: `${img}`,
+          };
+        });
+
+      //PROFILE
+      state.profile = Object?.values(arr)
+        .filter((v) => {
+          return v._type === 'profile';
+        })
+        .map((v) => {
+          const img = v.mainImage ? builder(v.mainImage) : '/logo.jpg';
+          return {
+            img,
+            title: v.title,
+            text: v.excerpt,
+          };
+        })[0];
+
+      //WHO WE ARE
+      if (state.page.length < 1) {
+
+        state.page = Object?.values(arr)
+          .filter((v) => {
+            return v._type === 'pages';
+          })
+          .map((v) => {
+            const img = v.mainImage ? builder(v.mainImage) : '/logo.jpg';
+            return {
+              img,
+              title: v.title,
+              text: v.excerpt,
+              body: (
+                <PortableText
+                  className=""
+                  content={v.body}
+                  dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
+                  projectId={process.env.NEXT_PUBLIC_SANITY_PROJECTID}
+                  serializers={{
+                    h1: (props: any) => {
+                      <h1 className="" {...props} />;
+                    },
+                    h2: (props: any) => {
+                      <h2 className="" {...props} />;
+                    },
+                    li: ({ children }: any) => {
+                      <li className="">{children}</li>;
+                    },
+                    link: ({ href, children }: any) => {
+                      <a href={href} className="">
+                        {children}
+                      </a>;
+                    },
+                  }}
+                ></PortableText>
+              ),
+              slug: v.slug?.current,
+            };
+          });
+
+      }
+
+      //POST
       state.post = Object?.values(arr)
         .filter((v) => {
           return v._type === 'post';
@@ -94,128 +139,90 @@ export const postSlice = createSlice({
             </div>
           );
         });
+
+      //CONTACT
+      if (!Object.values(state.contact).some(v => v)) {
+        state.contact = Object?.values(arr)
+          .filter((v) => {
+            return v._type === 'contact';
+          })
+          .map((v) => ({
+            address: v.address,
+            email: v.email,
+            location: v.location,
+            mobile1: v.mobile1,
+            mobile2: v.mobile2,
+            mobile3: v.mobile3,
+            mobile4: v.mobile4,
+          }))[0];
+      }
     },
 
     pages(state, { payload }: payload) {
       const arr = payload || [];
 
-      state.page = Object?.values(arr)
-        .filter((v: any) => {
-          return v._type === 'pages';
-        })
-        .map((v: any) => {
-          const img = v.mainImage ? builder(v.mainImage) : '/logo.jpg';
-          return {
-            img,
-            title: v.title,
-            text: v.excerpt,
-            slug: v.slug.current
-          };
-        });
+      //PAGES
+      if (state.page.length < 1) {
+        state.page = Object?.values(arr)
+          .filter((v) => {
+            return v._type === 'pages';
+          })
+          .map((v) => {
+            const img = v.mainImage ? builder(v.mainImage) : '/logo.jpg';
+            return {
+              img,
+              title: v.title,
+              text: v.excerpt,
+              body: (
+                <PortableText
+                  className=""
+                  content={v.body}
+                  dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
+                  projectId={process.env.NEXT_PUBLIC_SANITY_PROJECTID}
+                  serializers={{
+                    h1: (props: any) => {
+                      <h1 className="" {...props} />;
+                    },
+                    h2: (props: any) => {
+                      <h2 className="" {...props} />;
+                    },
+                    li: ({ children }: any) => {
+                      <li className="">{children}</li>;
+                    },
+                    link: ({ href, children }: any) => {
+                      <a href={href} className="">
+                        {children}
+                      </a>;
+                    },
+                  }}
+                ></PortableText>
+              ),
+              slug: v.slug?.current,
+            };
+          });
+      }
+
+      //CONTACT
+      if (!Object.values(state.contact).some(v => v)) {
+        state.contact = Object?.values(arr)
+          .filter((v) => {
+            return v._type === 'contact';
+          })
+          .map((v) => ({
+            address: v.address,
+            email: v.email,
+            location: v.location,
+            mobile1: v.mobile1,
+            mobile2: v.mobile2,
+            mobile3: v.mobile3,
+            mobile4: v.mobile4,
+          }))[0];
+      }
     },
-
-    socials(state, { payload }: payload) {
-      const arr = payload || [];
-
-      state.social = Object?.values(arr)
-        .filter((v) => {
-          return v._type === 'social';
-        })
-        .map((v) => {
-          const img = v.mainImage ? builder(v.mainImage) : '/logo.jpg';
-          return {
-            img,
-            title: v.title,
-            slug: v.slug,
-          };
-        });
-    },
-
-    sliders(state, { payload }: payload) {
-      const arr = payload || [];
-
-      state.slider = Object?.values(arr)
-        .filter((v) => {
-          return v._type === 'slider';
-        })
-        .map((v) => {
-          const img = v.mainImage ? builder(v.mainImage) : '/logo.jpg';
-          return {
-            url: `${img}`,
-          };
-        });
-    },
-    logos(state, { payload }: payload) {
-      const arr = payload || {};
-
-      state.logo = Object?.values(arr)
-        .filter((v) => {
-          return v._type === 'logo';
-        })
-        .map((v) => {
-          const img = v.mainImage ? builder(v.mainImage) : '/logo.jpg';
-          return {
-            img,
-            slug: v.slug,
-          };
-        })[0];
-    },
-    profiles(state, { payload }: payload) {
-      const arr = payload || {};
-
-      state.profile = Object?.values(arr)
-        .filter((v) => {
-          return v._type === 'profile';
-        })
-        .map((v) => {
-          const img = v.mainImage ? builder(v.mainImage) : '/logo.jpg';
-          return {
-            img,
-            title: v.title,
-            text: v.excerpt,
-          };
-        })[0];
-    },
-    contacts(state, { payload }: payload) {
-      const arr = payload || [];
-
-      state.contact = Object?.values(arr)
-        .filter((v) => {
-          return v._type === 'contact';
-        })
-        .map((v) => ({
-          address: v.address,
-          email: v.email,
-          location: v.location,
-          mobile1: v.mobile1,
-          mobile2: v.mobile2,
-          mobile3: v.mobile3,
-          mobile4: v.mobile4,
-        }))[0];
-    },
-  },
-
-  // Special reducer for hydrating the state. Special case for next-redux-wrapper
-  extraReducers: (builder) => {
-    builder.addCase(HYDRATE, (state, action: any) => {
-      return {
-        ...state,
-        ...action.payload,
-      };
-    });
   },
 });
 
-export const {
-  allInfos,
-  posts,
-  pages,
-  socials,
-  sliders,
-  logos,
-  profiles,
-  contacts,
-} = postSlice.actions;
+export const { pages, homepage } = postSlice.actions;
 
 export const selectPageState = (state: any) => state.data.page;
 export const selectPostState = (state: any) => state.data.post;
@@ -233,32 +240,17 @@ END CREATE STATE
 BEGIN CREATE STORE
 ---------------------------*/
 const rootReducer = combineReducers({
-  data: postSlice.reducer,
+  [postSlice.name]: postSlice.reducer,
 });
 
-const persistConfig = {
-  key: 'root',
-  storage,
-  transforms: [SetTransform],
-};
-
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
   devTools: true,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
     }),
 });
-
-export const persistor = persistStore(store);
-
-export const wrapper = createWrapper(() => store, {
-  debug: process.env.NODE_ENV === 'development',
-});
-
 /*---------------------------
 END CREATE STORE
 ---------------------------*/

@@ -2,61 +2,39 @@ import Slide from '@/components/Slide';
 import styles from '@/styles/Home.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
-import { client } from '@/client/client';
 
 import {
-  allInfos,
-  posts,
-  pages,
-  socials,
-  sliders,
-  logos,
-  profiles,
-  contacts,
+  homepage,
   selectPageState,
   selectPostState,
-  selectSocialState,
-  selectSliderState,
-  selectLogoState,
   selectProfileState,
-  selectContactState,
 } from '@/store/store';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { wrapper } from '@/store/store';
+import { client } from '@/client/client';
+import { useEffect, useState } from 'react';
 
 function Home({ data }: any) {
   const dispatch = useDispatch();
-  const payload = useSelector((state: any) => state.data.data.allInfo);
 
-  //SLIDER
-  dispatch(sliders(payload));
+  dispatch(homepage(data));
 
-  //PROFILE
-  dispatch(profiles(payload));
   const { img, title } = useSelector(selectProfileState);
-
-  //WHO WE ARE
-  dispatch(pages(payload));
-
-  
   const whoweare = useSelector(selectPageState);
 
-  const who  = Object.values(whoweare).filter((v: any) => v.slug === 'who-we-are').map((v: any) => ({
-    title: v.title,
-    img: v.img,
-    text: v.text
-  }))[0]
-
-
-
+  const who = Object.values(whoweare)
+    .filter((v: any) => v.slug === 'who-we-are')
+    .map((v: any) => ({
+      title: v.title,
+      img: v.img,
+      text: v.text,
+    }))[0];
 
   //POSTS
-  dispatch(posts(payload));
+
   const featuredposts = useSelector(selectPostState);
 
   //CONTACT
-  dispatch(contacts(payload));
 
   return (
     <>
@@ -67,7 +45,7 @@ function Home({ data }: any) {
         <div className={styles.profile}>
           <div>
             <Image src={img} alt="" width="196" height="200" />
-            <h4>{title}</h4>
+            <p>{title}</p>
             <h3>(C.E.O)</h3>
             <div className={styles.social}>
               <a href="">
@@ -117,7 +95,9 @@ function Home({ data }: any) {
         </div>
 
         <div>
-          <div>JOIN US TO HELP THE POOR AND NEEDY IN SOCIETY</div>
+          <div>
+            <h1>JOIN US TO HELP THE POOR AND NEEDY IN SOCIETY</h1>
+          </div>
         </div>
       </section>
 
@@ -131,20 +111,15 @@ function Home({ data }: any) {
   );
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) =>
-    async ({ params }) => {
-      const data = await client.fetch(`
+export const getServerSideProps = async () => {
+  const data = await client.fetch(`
         *[
           _type == 'post' ||
           _type == 'pages' ||
-          _type == 'social' ||
           _type == 'slider' ||
-          _type == 'logo' ||
           _type == 'profile' ||
           _type == 'contact' 
         ]{
-          _id,
           title,
           _type,
           createdAt,
@@ -162,14 +137,11 @@ export const getServerSideProps = wrapper.getServerSideProps(
         }
       `);
 
-      store.dispatch(allInfos(data));
-
-      return {
-        props: {
-          data,
-        },
-      };
-    }
-);
+  return {
+    props: {
+      data,
+    },
+  };
+};
 
 export default Home;

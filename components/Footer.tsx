@@ -2,11 +2,12 @@ import Image from 'next/image';
 import styles from '@/styles/Footer.module.scss';
 import { useSelector } from 'react-redux';
 import { selectContactState } from '@/store/store';
+import useAppDispatch from '@/store/appData';
 
 const Footer = () => {
+
+
   const { address, email, mobile1, mobile2 } = useSelector(selectContactState);
-
-
 
   return (
     <footer className={styles.footer}>

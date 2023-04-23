@@ -8,21 +8,17 @@ export type arr = {
   arr: {}[];
 };
 
-
 export type slides = {
-  url: string
+  url: string;
 }[];
 
-
-
-export type allinfobj = {
-  _id: string;
+export type query = {
   title: string;
   _type: string;
-  createdAt: string;
+  createdAt?: string;
   mainImage: string;
-  body: string;
-  slug: string;
+  body: [];
+  slug: {current: string};
   address: string;
   email: string;
   location: string;
@@ -31,14 +27,14 @@ export type allinfobj = {
   mobile3: string;
   mobile4: string;
   excerpt: string;
-}[]
-// Type for our state
+};
 
-
+export type payload = {
+  payload: query[]
+}
 
 export type initState = {
-  allInfo: allinfobj;
-
+  homepage: '';
   post: any;
 
   page: {
@@ -53,7 +49,7 @@ export type initState = {
     slug: string;
   }[];
 
-  slider: slides
+  slider: slides;
 
   logo: {
     img: string;
