@@ -1,10 +1,9 @@
 import React from 'react';
 import styles from '@/styles/About.module.scss';
-import { pages, selectPageState } from '@/store/store';
+import { pages, selectPageState, selectProjectsState } from '@/store/store';
 import { useSelector, useDispatch } from 'react-redux';
 import Image from 'next/image';
 import { client } from '@/client/client';
-import { serverSideData } from '@/typings';
 
 const About = ({ data }: any) => {
   const dispatch = useDispatch();
@@ -12,6 +11,7 @@ const About = ({ data }: any) => {
   dispatch(pages(data));
 
   const whoweare = useSelector(selectPageState);
+  const projects = useSelector(selectProjectsState);
 
   const vision = Object.values(whoweare)
     .filter((v: any) => v.slug === 'who-we-are')
@@ -60,13 +60,33 @@ const About = ({ data }: any) => {
           </div>
         </div>
       </section>
+
+      <section>
+        <div className="container">
+          <h2>Technical Statistics</h2>
+          <div>{projects}</div>
+        </div>
+      </section>
+
+      <section>
+        <div className="container">
+          <div>
+            <h2>{vision.title}</h2>
+            <div>{vision.body}</div>
+          </div>
+          <div>
+            <h2>{mission.title}</h2>
+            <div>{mission.body}</div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const data = await client.fetch(`
-        *[_type == 'pages' || _type == 'social' || _type == 'contact']{
+        *[_type == 'pages' || _type == 'social' || _type == 'contact' || _type == 'projects']{
           title,
           _type,
           mainImage,
@@ -87,6 +107,7 @@ export const getServerSideProps = async () => {
     props: {
       data,
     },
+    revalidate: 30,
   };
 };
 

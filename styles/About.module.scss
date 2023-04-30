@@ -1,6 +1,7 @@
 @import 'config.scss';
 
 .about {
+  
   & > section:nth-of-type(1) {
     height: 100vh;
     background-image: url('/about.jpg');
@@ -13,7 +14,7 @@
     justify-content: flex-start;
     & > div {
       h1 {
-        font-size: 9rem;
+        font-size: 7rem;
         font-weight: 900;
         line-height: 1.2em;
       }
@@ -39,6 +40,9 @@
     }
   }
 
+
+
+
   & > section:nth-of-type(2) {
     background-color: $grey;
     & > div {
@@ -50,6 +54,71 @@
 
       div:nth-of-type(2) {
         padding: 3em;
+        h2 {
+          color: $text-color;
+        }
+      }
+    }
+  }
+
+  & > section:nth-of-type(3) {
+    background-image: url('/project.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    height: 77%;
+    position: relative;
+    padding-block: 5em;
+    color: white;
+    z-index: -2;
+
+    &::after {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100vw;
+      display: block;
+      background-color: rgba(241, 86, 42, 0.5);
+      left: 0;
+      top: 0;
+      z-index: -1;
+    }
+
+    h2 {
+      margin-bottom: 2em;
+    }
+
+    & > div {
+      & > div {
+        display: flex;
+        align-items: center;
+
+        gap: 3rem;
+        div {
+          flex: 1rem 1 1;
+          padding: 2em;
+          text-align: center;
+          background-color: rgba(241, 86, 42, 0.7);
+          i {
+            font-size: 6rem;
+          }
+        }
+      }
+    }
+  }
+
+  & > section:nth-of-type(4) {
+    & > div {
+      display: flex;
+      & > div {
+        flex: 5rem 1 1;
+        padding: 3em;
+      }
+      & > div:nth-of-type(1) {
+        background-color: $grey;
+      }
+      h2 {
+        color: $text-color;
       }
     }
   }

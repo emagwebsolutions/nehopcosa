@@ -1,11 +1,19 @@
 import Image from 'next/image';
 import styles from '@/styles/Footer.module.scss';
 import { useSelector } from 'react-redux';
-import { selectContactState } from '@/store/store';
-import useAppDispatch from '@/store/appData';
+import { selectContactState, selectSocialState } from '@/store/store';
 
 const Footer = () => {
-
+  //SOCIAL ICONS
+  const socialicons = useSelector(selectSocialState);
+  const social = Object.values(socialicons).map((v: any, k: number) => {
+    const fa = v.title.toLowerCase();
+    return (
+      <a href={v.slug} key={k}>
+        <i className={`fa fa-${fa}`}></i> {v.tile}
+      </a>
+    );
+  });
 
   const { address, email, mobile1, mobile2 } = useSelector(selectContactState);
 
@@ -39,24 +47,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div>
-            <a href="">
-              <i className="fa fa-facebook fa-lg"></i>
-              Facebook
-            </a>
-            <a href="">
-              <i className="fa fa-twitter fa-lg"></i>
-              Twitter
-            </a>
-            <a href="">
-              <i className="fa fa-instagram fa-lg"></i>
-              Instagram
-            </a>
-            <a href="">
-              <i className="fa fa-youtube fa-lg"></i>
-              Youtube
-            </a>
-          </div>
+          <div>{social}</div>
         </div>
       </div>
 

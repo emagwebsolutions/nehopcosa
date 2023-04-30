@@ -57,6 +57,7 @@ function Home({ data }: any) {
           <div>
             <Image src={img} alt="" width="196" height="200" />
             <strong>{title}</strong>
+            <br />
             <strong>(C.E.O)</strong>
             <div className={styles.social}>{social}</div>
           </div>
@@ -73,7 +74,7 @@ function Home({ data }: any) {
 
             <div>{who.text}</div>
 
-            <Link href="" className="button">
+            <Link href="about" className="button">
               Learn More
             </Link>
           </div>
@@ -86,7 +87,7 @@ function Home({ data }: any) {
             <h2>They Need Your Help</h2>
             <p>Support a cause you care about</p>
 
-            <Link href="" className="button-outline">
+            <Link href="about" className="button-outline">
               Learn More
             </Link>
           </div>
@@ -103,13 +104,13 @@ function Home({ data }: any) {
         <h4>Our Blog</h4>
         <h2>Recent From Blog</h2>
 
-        <div className="container">{featuredposts}</div>
+        <div className="container">{featuredposts.slice(0,4)}</div>
       </section>
     </>
   );
 }
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const data = await client.fetch(`
         *[
           _type == 'post' ||
@@ -136,11 +137,13 @@ export const getServerSideProps = async () => {
         }
       `);
 
-  return {
-    props: {
-      data,
-    },
-  };
-};
+    return {
+      props: {
+        data
+      },
+      revalidate: 30
+    };
+
+}
 
 export default Home;

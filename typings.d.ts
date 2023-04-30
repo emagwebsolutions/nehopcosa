@@ -38,8 +38,9 @@ export type serverSideData = {
 };
 
 export type initState = {
+  allinfo: {}[];
   homepage: '';
-  post: any;
+  post: React.ReactNode;
 
   page: any;
 
@@ -51,10 +52,7 @@ export type initState = {
 
   slider: slides;
 
-  logo: {
-    img: string;
-    slug: string;
-  };
+  projects: React.ReactNode
 
   profile: {
     img: string;

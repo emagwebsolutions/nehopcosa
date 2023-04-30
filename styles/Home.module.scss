@@ -374,3 +374,13 @@
     }
   }
 }
+
+
+.whoweare {
+  margin-block: 5em;
+  & > div {
+    h1{
+      color: $text-color;
+    }
+  }
+}
