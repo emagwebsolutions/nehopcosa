@@ -1,9 +1,78 @@
 @import 'config.scss';
 
-.post{
+.post {
+  & > div {
+    display: flex;
+    gap: 3rem;
+
+    & > div:nth-of-type(1) {
+      flex-basis: 10rem;
+      flex-grow: 3;
+      margin-top: 5.5em;
+    }
+
+    & > div:nth-of-type(2) {
+      flex-basis: 10rem;
+      flex-grow: 1;
+      margin-top: 5.5em;
+
+      & > div:nth-of-type(1) {
+        background-color: $grey;
+        padding-block: 1.3em;
+        padding-inline: 1.5em;
+        display: flex;
+        gap: 0.3em;
+        & > input {
+          padding: 1em;
+        }
+
+        & > button {
+          background-color: $danger;
+          font-size: 1.6rem;
+          padding-inline: 1em;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          border: none;
+          outline: none;
+        }
+      }
+
+      & > div:nth-of-type(2) {
+        background-color: $grey;
+        padding-block: 1.3em;
+        padding-inline: 1.5em;
+        margin-top: 2em;
+        height: 45rem;
+
+        & > div {
+          display: flex;
+          gap: 0.5em;
+          margin-bottom: 1.3em;
+          h4 {
+            line-height: 1.7rem;
+
+            color: $text-color;
+            font-size: 1.4rem;
+          }
+          span {
+            font-size: 1.4rem;
+          }
+
+          & > div:nth-of-type(1) {
+            flex-basis: 6rem;
+            flex-grow: 1;
+          }
+
+          & > div:nth-of-type(2) {
+            flex-basis: 6rem;
+            flex-grow: 5;
+          }
 
 
-
-
-  
+        }
+      }
+    }
+  }
 }

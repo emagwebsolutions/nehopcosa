@@ -1,13 +1,23 @@
-import { allinfo, blog, selectPostState, wrapper } from '@/store/store';
+import { blog, selectPostState, wrapper } from '@/store/store';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from '@/styles/Blog.module.scss';
-import { client } from '@/client/client';
+import { useGetpostsQuery } from '@/store/fetchData';
+import {useEffect} from 'react'
 
-const Blog = ({ data }: any) => {
+const Blog = () => {
   //FEATURED POST DETAILS
+  const { data } = useGetpostsQuery('');
 
   const dispatch = useDispatch();
-  dispatch(blog(data));
+
+
+  useEffect(()=>{
+
+    if(data){
+      dispatch(blog(data.data));
+    }
+    
+  },[data,dispatch])
 
   const featuredposts = useSelector(selectPostState);
 
@@ -27,39 +37,5 @@ const Blog = ({ data }: any) => {
     </div>
   );
 };
-
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) =>
-    async ({ params }) => {
-      const data = await client.fetch(`
-        *[
-          _type == 'post' 
-        ]{
-          title,
-          _type,
-          createdAt,
-          mainImage,
-          body,
-          slug,
-          address,
-          email,
-          location,
-          mobile1,
-          mobile2,
-          mobile3,
-          mobile4,
-          excerpt
-        }
-      `);
-
-      await store.dispatch(allinfo(data));
-
-      return {
-        props: {
-          data,
-        },
-      };
-    }
-);
 
 export default Blog;

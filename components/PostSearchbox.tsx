@@ -1,9 +1,16 @@
-import React from 'react'
+import React from 'react';
+import { useSelector,useDispatch } from 'react-redux';
 
 const PostSearchbox = () => {
-  return (
-    <div>PostSearchbox</div>
-  )
-}
+  const dispatch = useDispatch()
+  const info = useSelector((state: any) => state?.data?.data?.allinfo);
 
-export default PostSearchbox
+  return (
+    <div className="form-control">
+      <input type="search" placeholder="Search Post" />
+      <button type="button">Search</button>
+    </div>
+  );
+};
+
+export default PostSearchbox;

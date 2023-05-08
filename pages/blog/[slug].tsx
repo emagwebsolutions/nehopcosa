@@ -2,19 +2,19 @@ import { client } from '@/client/client';
 import PostSearchbox from '@/components/PostSearchbox';
 import RecentPost from '@/components/RecentPost';
 import PortableText from 'react-portable-text';
-import { useSelector } from 'react-redux';
+import styles from '@/styles/Post.module.scss';
 
 const Post = ({ data }: any) => {
-  const details =  data? data?.body : ''
+  // const details =  data? data?.body : ''
   return (
-    <div className="post">
+    <div className={styles.post}>
       <div className="container">
         <div>
           <PortableText
             className=""
-            content={details}
             dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
             projectId={process.env.NEXT_PUBLIC_SANITY_PROJECTID}
+            content={data.body}
             serializers={{
               h1: (props: any) => {
                 <h1 className="" {...props} />;
@@ -31,8 +31,9 @@ const Post = ({ data }: any) => {
                 </a>;
               },
             }}
-          ></PortableText>
+          />
         </div>
+
         <div>
           <PostSearchbox />
           <RecentPost />

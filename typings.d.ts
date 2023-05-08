@@ -59,14 +59,4 @@ export type initState = {
     title: string;
     text: string;
   };
-
-  contact: {
-    address: string;
-    email: string;
-    location: string;
-    mobile1: string;
-    mobile2: string;
-    mobile3: string;
-    mobile4: string;
-  };
 };

@@ -295,12 +295,16 @@
         right: 0;
         position: absolute;
         h2 {
-          line-height: 3.5rem;
+          line-height: 3rem;
           margin-bottom: 0.3em;
         }
       }
     }
     & > div:nth-of-type(2) {
+      h1{
+        line-height: 5.6rem;
+        margin-top: .6em;
+      }
       flex-basis: 60rem;
       background-image: url('/one.jpg');
       background-size: cover;

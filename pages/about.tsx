@@ -3,12 +3,19 @@ import styles from '@/styles/About.module.scss';
 import { pages, selectPageState, selectProjectsState } from '@/store/store';
 import { useSelector, useDispatch } from 'react-redux';
 import Image from 'next/image';
-import { client } from '@/client/client';
+import { useGetpostsQuery } from '@/store/fetchData';
+import { useEffect } from 'react';
 
-const About = ({ data }: any) => {
+const About = () => {
   const dispatch = useDispatch();
 
-  dispatch(pages(data));
+  const { data } = useGetpostsQuery('');
+
+  useEffect(() => {
+    if (data) {
+      dispatch(pages(data.data));
+    }
+  }, [data, dispatch]);
 
   const whoweare = useSelector(selectPageState);
   const projects = useSelector(selectProjectsState);
@@ -45,18 +52,18 @@ const About = ({ data }: any) => {
           <div className="dash"></div>
           <h1>WHO</h1>
           <h1>WE ARE</h1>
-          <div>{about.text}</div>
+          <div>{about?.text}</div>
         </div>
       </section>
 
       <section>
         <div className="container">
           <div>
-            <Image src={about.img} width="500" height="600" alt="" />
+            <Image src={about?.img} width="500" height="600" alt="" />
           </div>
           <div>
-            <h2>{about.title}</h2>
-            {about.body}
+            <h2>{about?.title}</h2>
+            {about?.body}
           </div>
         </div>
       </section>
@@ -71,44 +78,17 @@ const About = ({ data }: any) => {
       <section>
         <div className="container">
           <div>
-            <h2>{vision.title}</h2>
-            <div>{vision.body}</div>
+            <h2>{vision?.title}</h2>
+            <div>{vision?.body}</div>
           </div>
           <div>
-            <h2>{mission.title}</h2>
-            <div>{mission.body}</div>
+            <h2>{mission?.title}</h2>
+            <div>{mission?.body}</div>
           </div>
         </div>
       </section>
     </div>
   );
-};
-
-export const getStaticProps = async () => {
-  const data = await client.fetch(`
-        *[_type == 'pages' || _type == 'social' || _type == 'contact' || _type == 'projects']{
-          title,
-          _type,
-          mainImage,
-          body,
-          slug,
-          address,
-          email,
-          location,
-          mobile1,
-          mobile2,
-          mobile3,
-          mobile4,
-          excerpt
-        }
-      `);
-
-  return {
-    props: {
-      data,
-    },
-    revalidate: 30,
-  };
 };
 
 export default About;
