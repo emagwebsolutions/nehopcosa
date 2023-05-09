@@ -1,8 +1,8 @@
-import { blog, selectPostState, wrapper } from '@/store/store';
+import { blog, selectPostState } from '@/store/store';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from '@/styles/Blog.module.scss';
 import { useGetpostsQuery } from '@/store/fetchData';
-import {useEffect} from 'react'
+import { useEffect } from 'react';
 
 const Blog = () => {
   //FEATURED POST DETAILS
@@ -10,14 +10,11 @@ const Blog = () => {
 
   const dispatch = useDispatch();
 
-
-  useEffect(()=>{
-
-    if(data){
+  useEffect(() => {
+    if (data) {
       dispatch(blog(data.data));
     }
-    
-  },[data,dispatch])
+  }, [data, dispatch]);
 
   const featuredposts = useSelector(selectPostState);
 

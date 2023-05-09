@@ -3,13 +3,32 @@ import styles from '@/styles/Footer.module.scss';
 
 import { useGetpostsQuery } from '@/store/fetchData';
 import { builder } from '@/client/client';
+import {useEffect,useState} from 'react'
 
 const Footer = () => {
   //SOCIAL ICONS
-  const { data, isSuccess } = useGetpostsQuery('');
+  const { data, isSuccess,isLoading } = useGetpostsQuery('');
 
-  if (isSuccess) {
-    const social = Object?.values(data.data)
+
+  const [getData,setData] = useState<any>(null)
+
+  useEffect(()=>{
+
+    if(data){
+      setData(data)
+    }
+
+  },[data])
+
+
+  if(!getData){
+    return (
+      <div>Data is loading </div>
+    )
+  }
+
+
+    const social = Object.values(getData?.data)
       .filter((v: any) => {
         return v._type === 'social';
       })
@@ -30,7 +49,7 @@ const Footer = () => {
         );
       });
 
-    const contacts = Object.values(data.data)
+    const contacts = Object.values(getData?.data)
       .filter((v: any) => {
         return v._type === 'contact';
       })
@@ -44,7 +63,13 @@ const Footer = () => {
         mobile4: v.mobile4,
       }))[0];
 
-    const { address, email, mobile1, mobile2 } = { ...contacts };
+
+    const address = contacts.address 
+    const email = contacts.email 
+    const mobile1 = contacts.mobile1 
+    const mobile2 = contacts.mobile2
+
+
 
     return (
       <footer className={styles.footer}>
@@ -83,7 +108,7 @@ const Footer = () => {
         <div className="container">&copy; 2023 NEHOPCOSA</div>
       </footer>
     );
-  }
+  
 };
 
 export default Footer;

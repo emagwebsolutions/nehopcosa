@@ -12,7 +12,10 @@ const Meta = ({ title }: Title) => {
       <meta name="description" content="Cleaning Service" />
       <meta name="keywords" content="Cleaning Service" />
       <link rel="icon" href="/favicon-16x16.PNG" />
-
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      />
       <title>{title}</title>
     </Head>
   );

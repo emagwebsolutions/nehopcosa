@@ -9,8 +9,7 @@ import {
   homepage,
   selectPageState,
   selectPostState,
-  selectProfileState,
-  wrapper,
+  selectProfileState
 } from '@/store/store';
 
 import { useDispatch, useSelector } from 'react-redux';

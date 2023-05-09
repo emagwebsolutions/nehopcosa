@@ -8,6 +8,7 @@ const Contact = () => {
       <br />
       <br />
       <br />
+      CURRENTLY UNAVAILABLE
     </div>
   );
 };

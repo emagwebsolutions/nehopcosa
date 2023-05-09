@@ -2,7 +2,7 @@ import { configureStore, combineReducers, createSlice } from '@reduxjs/toolkit';
 import { builder } from '@/client/client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { initState, payload } from '@/typings';
+import { initState, payload, plists } from '@/typings';
 import PortableText from 'react-portable-text';
 import { fetchData } from './fetchData';
 
@@ -12,11 +12,14 @@ BEGIN CREATE STATE
 
 // Initial state
 const initialState: initState = {
-  allinfo: [],
   homepage: '',
   post: '',
+  postlists: [{
+    img: '',
+    slug: '',
+    title: ''
+  }],
   page: [],
-  social: [],
   slider: [],
   projects: [],
   profile: {
@@ -32,10 +35,9 @@ export const postSlice = createSlice({
   initialState,
 
   reducers: {
-    allinfo: (state, { payload }: payload) => {
-      if (state.allinfo.length < 1) {
-        state.allinfo = payload;
-      }
+
+    postlists: (state, { payload }: plists) => {
+      state.postlists = payload;
     },
 
     blog: (state, { payload }: payload) => {
@@ -227,13 +229,13 @@ export const postSlice = createSlice({
   },
 });
 
-export const { pages, homepage, blog, allinfo } = postSlice.actions;
+export const { pages, homepage, blog, postlists } = postSlice.actions;
 export const selectPageState = (state: any) => state.data.page;
 export const selectPostState = (state: any) => state.data.post;
 export const selectSliderState = (state: any) => state.data.slider;
 export const selectProfileState = (state: any) => state.data.profile;
 export const selectProjectsState = (state: any) => state.data.projects;
-
+export const selectPostlists = (state: any) => state.data.postlists;
 /*---------------------------
 END CREATE STATE
 ---------------------------*/

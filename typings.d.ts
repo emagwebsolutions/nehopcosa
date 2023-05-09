@@ -12,6 +12,16 @@ export type slides = {
   url: string;
 }[];
 
+export type poslist = {
+  img: string;
+  slug: string;
+  title: string;
+};
+
+export type plists = {
+  payload: poslist[];
+};
+
 export type query = {
   title: string;
   _type: string;
@@ -38,21 +48,14 @@ export type serverSideData = {
 };
 
 export type initState = {
-  allinfo: {}[];
   homepage: '';
   post: React.ReactNode;
-
+  postlists: poslist[];
   page: any;
-
-  social: {
-    img: string;
-    title: string;
-    slug: string;
-  }[];
 
   slider: slides;
 
-  projects: React.ReactNode
+  projects: React.ReactNode;
 
   profile: {
     img: string;

@@ -1,14 +1,57 @@
-import React from 'react';
-import { useSelector,useDispatch } from 'react-redux';
+import { postlists, selectPostlists } from '@/store/store';
+import { useSelector, useDispatch } from 'react-redux';
+import { useGetpostsQuery } from '@/store/fetchData';
+import { ReactHTMLElement, useRef } from 'react';
+import { builder } from '@/client/client';
 
 const PostSearchbox = () => {
-  const dispatch = useDispatch()
-  const info = useSelector((state: any) => state?.data?.data?.allinfo);
+  const { data } = useGetpostsQuery('');
+  const dispatch = useDispatch();
+
+  const obj: {
+    img: string
+    slug: string
+    title: string
+  }[] = useSelector(selectPostlists);
+
+  const inptRef = useRef<any>();
+
+  const handleClick = () => {
+    if (inptRef.current) {
+      const val = inptRef.current.value;
+
+      const res = Object.values(obj).filter((v: any) =>
+        Object.values(v).join(' ').toLowerCase().includes(val.toLowerCase())
+      );
+
+      dispatch(postlists(res));
+    }
+  };
+
+
+  const handleChange = (e: any)=>{
+
+    if(e.target.value === ''){
+      if (data) {
+        const obj = Object.values(data.data)
+        .filter((v: any) => v._type === 'post')
+        .map((v: any)=>({
+          img: builder(v.mainImage),
+          slug: v.slug?.current,
+          title: v.title
+        }))
+        dispatch(postlists(obj));
+      }
+    }
+
+  }
 
   return (
     <div className="form-control">
-      <input type="search" placeholder="Search Post" />
-      <button type="button">Search</button>
+      <input type="text" onChange={handleChange} ref={inptRef} placeholder="Search Post" />
+      <button type="button" onClick={handleClick}>
+        Search
+      </button>
     </div>
   );
 };
