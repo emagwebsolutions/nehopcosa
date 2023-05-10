@@ -161,7 +161,7 @@ END CREATE STATE
 /*---------------------------
 BEGIN CREATE STORE
 ---------------------------*/
-const rootReducer = combineReducers({
+const rootReducer: any = combineReducers({
   [postSlice.name]: postSlice.reducer,
   [fetchData.reducerPath]: fetchData.reducer,
 });
