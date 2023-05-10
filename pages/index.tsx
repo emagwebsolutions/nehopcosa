@@ -19,12 +19,7 @@ function Home() {
   const { data } = useGetpostsQuery('');
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (data) {
-      dispatch(homepage(data.data));
-      console.log(data)
-    }
-  }, [data, dispatch]);
+
 
   //PROFILE DETAILS
   const { img, title } = useSelector(selectProfileState);
