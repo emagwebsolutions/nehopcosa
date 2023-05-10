@@ -16,13 +16,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { builder } from '@/client/client';
 
 function Home() {
-  const { data } = useGetpostsQuery('');
+  const { data,isLoading } = useGetpostsQuery('');
   const dispatch = useDispatch();
 
 
-    if (data) {
-      dispatch(homepage(data.data));
-    }
+  dispatch(homepage(data.data));
+    
 
 
   //PROFILE DETAILS
