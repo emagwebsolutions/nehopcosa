@@ -17,7 +17,6 @@ function Home() {
   useEffect(() => {
     if (data) {
       dispatch(homepage(data.data));
-      console.log(data)
     }
   }, [data, dispatch]);
 
@@ -30,7 +29,7 @@ function Home() {
       <br />
       <br />
       <br />
-       THIS IS HOME PAGE
+       HOME PAGE CHANGED
       </>
     );
   

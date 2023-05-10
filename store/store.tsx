@@ -75,7 +75,18 @@ export const postSlice = createSlice({
     homepage: (state, { payload }: payload) => {
       const arr = payload || [];
 
-   
+      //SLIDER
+      state.slider = Object?.values(arr)
+        .filter((v) => {
+          return v._type === 'slider';
+        })
+        .map((v) => {
+          const img = v.mainImage ? builder(v.mainImage) : '/noimage.jpg';
+          return {
+            url: `${img}`,
+          };
+        });
+
     },
 
     pages(state, { payload }: payload) {
