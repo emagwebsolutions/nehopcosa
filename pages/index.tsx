@@ -9,20 +9,17 @@ import {
   homepage,
   selectPageState,
   selectPostState,
-  selectProfileState
+  selectProfileState,
 } from '@/store/store';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { builder } from '@/client/client';
 
 function Home() {
-  const { data,isLoading } = useGetpostsQuery('');
+  const { data, isLoading } = useGetpostsQuery('');
   const dispatch = useDispatch();
 
-
-  dispatch(homepage(data.data));
-    
-
+  dispatch(homepage(data?.data));
 
   //PROFILE DETAILS
   const { img, title } = useSelector(selectProfileState);
@@ -65,12 +62,12 @@ function Home() {
 
     return (
       <>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <h1>HOME PAGE</h1>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <h1>HOME PAGE</h1>
         <section className={styles.header}>
           <div className={styles.slider}>
             <Slide />
