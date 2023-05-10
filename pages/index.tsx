@@ -20,7 +20,7 @@ function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (data?.data) {
+    if (data && data.data) {
       dispatch(homepage(data.data));
     }
   }, [data, dispatch]);
