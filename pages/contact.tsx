@@ -4,7 +4,7 @@ const Contact = () => {
       <br />
       <br />
       <br />
-      CONTACT US
+      CONTACT US TODAY
     </div>
   );
 };
