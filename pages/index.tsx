@@ -21,7 +21,7 @@ function Home() {
 
   useEffect(() => {
     if (data && data.data) {
-      dispatch(homepage(data.data));
+      dispatch(homepage([]));
     }
   }, [data, dispatch]);
 
