@@ -1,14 +1,10 @@
-
-
 const Contact = () => {
-
-
   return (
     <div>
       <br />
       <br />
       <br />
-      CURRENTLY UNAVAILABLE
+      CONTACT US
     </div>
   );
 };
