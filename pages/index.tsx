@@ -65,6 +65,12 @@ function Home() {
 
     return (
       <>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <h1>HOME PAGE</h1>
         <section className={styles.header}>
           <div className={styles.slider}>
             <Slide />
