@@ -3,7 +3,7 @@ import styles from '@/styles/Home.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useGetpostsQuery } from '@/store/fetchData';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   selectPageState,
@@ -22,30 +22,17 @@ function Home() {
   const { data } = useGetpostsQuery('');
   const dispatch = useDispatch();
 
+  const [isDispatched, setIsDispatched] = useState(false);
+
   useEffect(() => {
-    if (data && data.data) {
+    if (data && data.data && !isDispatched) {
       dispatch(slider(data.data));
-    }
-  }, [data, dispatch]);
-
-  useEffect(() => {
-    if (data && data.data) {
       dispatch(profile(data.data));
-    }
-  }, [data, dispatch]);
-
-  useEffect(() => {
-    if (data && data.data) {
       dispatch(post(data.data));
+      dispatch(post(data.data));
+      setIsDispatched(true);
     }
-  }, [data, dispatch]);
-
-
-  useEffect(() => {
-    if (data && data.data) {
-      dispatch(pages(data.data));
-    }
-  }, [data, dispatch]);
+  }, [data, dispatch, isDispatched]);
 
   //PROFILE DETAILS
   const { img, title } = useSelector(selectProfileState);
