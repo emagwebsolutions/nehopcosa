@@ -25,8 +25,24 @@ function Home() {
   useEffect(() => {
     if (data && data.data) {
       dispatch(slider(data.data));
+    }
+  }, [data, dispatch]);
+
+  useEffect(() => {
+    if (data && data.data) {
       dispatch(profile(data.data));
+    }
+  }, [data, dispatch]);
+
+  useEffect(() => {
+    if (data && data.data) {
       dispatch(post(data.data));
+    }
+  }, [data, dispatch]);
+
+
+  useEffect(() => {
+    if (data && data.data) {
       dispatch(pages(data.data));
     }
   }, [data, dispatch]);
