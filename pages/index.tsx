@@ -20,6 +20,10 @@ function Home() {
   const dispatch = useDispatch();
 
 
+    if (data) {
+      dispatch(homepage(data.data));
+    }
+
 
   //PROFILE DETAILS
   const { img, title } = useSelector(selectProfileState);
