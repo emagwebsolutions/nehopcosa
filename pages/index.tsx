@@ -6,10 +6,13 @@ import { useGetpostsQuery } from '@/store/fetchData';
 import { useEffect } from 'react';
 
 import {
-  homepage,
   selectPageState,
   selectPostState,
-  selectProfileState
+  selectProfileState,
+  slider,
+  profile,
+  post,
+  pages
 } from '@/store/store';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,9 +23,11 @@ function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (data) {
-      dispatch(homepage(data.data));
-      console.log(data)
+    if (data && data.data) {
+      dispatch(slider(data.data));
+      dispatch(profile(data.data));
+      dispatch(post(data.data));
+      dispatch(pages(data.data));
     }
   }, [data, dispatch]);
 

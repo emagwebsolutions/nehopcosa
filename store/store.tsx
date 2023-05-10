@@ -12,13 +12,14 @@ BEGIN CREATE STATE
 
 // Initial state
 const initialState: initState = {
-  homepage: '',
   post: '',
-  postlists: [{
-    img: '',
-    slug: '',
-    title: ''
-  }],
+  postlists: [
+    {
+      img: '',
+      slug: '',
+      title: '',
+    },
+  ],
   page: [],
   slider: [],
   projects: [],
@@ -35,7 +36,6 @@ export const postSlice = createSlice({
   initialState,
 
   reducers: {
-
     postlists: (state, { payload }: plists) => {
       state.postlists = payload;
     },
@@ -72,9 +72,8 @@ export const postSlice = createSlice({
       }
     },
 
-    homepage: (state, { payload }: payload) => {
+    slider: (state, { payload }: payload) => {
       const arr = payload || [];
-
       //SLIDER
       state.slider = Object?.values(arr)
         .filter((v) => {
@@ -86,24 +85,30 @@ export const postSlice = createSlice({
             url: `${img}`,
           };
         });
-
     },
 
-    pages(state, { payload }: payload) {
+
+
+    profile: (state, { payload }: payload) => {
       const arr = payload || [];
+      //PROFILE
+      state.profile = Object?.values(arr)
+        .filter((v) => {
+          return v._type === 'profile';
+        })
+        .map((v) => {
+          const img = v.mainImage ? builder(v.mainImage) : '/noimage.jpg';
+          return {
+            img,
+            title: v.title,
+            text: v.excerpt,
+          };
+        })[0];
+    },
 
-      //PROJECTS
-      state.projects = Object.values(arr)
-        .filter((v) => v._type === 'projects')
-        .map((v, k) => (
-          <div key={k}>
-            <i className={`fa ${v.slug?.current}`}></i>
-            <h1>{v.excerpt}</h1>
-            <p>{v.title}</p>
-          </div>
-        ));
-
-      //PAGES
+    pages: (state, { payload }: payload) => {
+      const arr = payload || [];
+      //WHO WE ARE
       if (state.page.length < 1) {
         state.page = Object?.values(arr)
           .filter((v) => {
@@ -144,10 +149,42 @@ export const postSlice = createSlice({
           });
       }
     },
+
+    post: (state, { payload }: payload) => {
+      const arr = payload || [];
+      //POST
+      if (!state.post) {
+        state.post = Object?.values(arr)
+          .filter((v) => {
+            return v._type === 'post';
+          })
+          .map((v, k: number) => {
+            return (
+              <div key={k}>
+                <Image
+                  width="230"
+                  height="170"
+                  alt=""
+                  src={builder(v.mainImage)}
+                />
+                <div>
+                  <h5>{v.title}</h5>
+                  <div>{v.excerpt}</div>
+
+                  <Link href={`blog/${v.slug?.current}`} className="button">
+                    Learn More
+                  </Link>
+                </div>
+              </div>
+            );
+          });
+      }
+    },
   },
 });
 
-export const { pages, homepage, blog, postlists } = postSlice.actions;
+export const {postlists,blog ,slider ,profile ,pages ,post 
+} = postSlice.actions;
 export const selectPageState = (state: any) => state.data.page;
 export const selectPostState = (state: any) => state.data.post;
 export const selectSliderState = (state: any) => state.data.slider;

@@ -48,7 +48,6 @@ export type serverSideData = {
 };
 
 export type initState = {
-  homepage: '';
   post: React.ReactNode;
   postlists: poslist[];
   page: any;
