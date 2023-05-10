@@ -9,7 +9,8 @@ import {
   homepage,
   selectPageState,
   selectPostState,
-  selectProfileState
+  selectProfileState,
+  selectSliderState,
 } from '@/store/store';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,15 +20,15 @@ function Home() {
   const { data } = useGetpostsQuery('');
   const dispatch = useDispatch();
 
+  const slider = useSelector(selectSliderState);
+
   useEffect(() => {
     if (data && data.data) {
- 
+      if (slider.length < 1) {
+        dispatch(homepage(data.data));
+      }
     }
-  }, [data, dispatch]);
-
-
-
-
+  }, [data, dispatch, slider]);
 
   //PROFILE DETAILS
   const { img, title } = useSelector(selectProfileState);
