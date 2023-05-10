@@ -21,9 +21,13 @@ function Home() {
 
   useEffect(() => {
     if (data && data.data) {
-      dispatch(homepage([]));
+ 
     }
   }, [data, dispatch]);
+
+
+
+
 
   //PROFILE DETAILS
   const { img, title } = useSelector(selectProfileState);
