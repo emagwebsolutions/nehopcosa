@@ -5,18 +5,14 @@ import Link from 'next/link';
 import { useGetpostsQuery } from '@/store/fetchData';
 import { useEffect, useState } from 'react';
 
-import {
-  selectPageState,
-  selectPostState,
-  selectProfileState,
-  slider,
-  profile,
-  post,
-  pages
-} from '@/store/store';
+
 
 import { useDispatch, useSelector } from 'react-redux';
 import { builder } from '@/client/client';
+import { slider } from '@/store/features/sliderSlice';
+import { profile, selectProfileState } from '@/store/features/profileSlice';
+import { post, selectPostState } from '@/store/features/postSlice';
+import { pages, selectPagesState } from '@/store/features/pagesSlice';
 
 function Home() {
   const { data } = useGetpostsQuery('');
@@ -29,14 +25,14 @@ function Home() {
       dispatch(slider(data.data));
       dispatch(profile(data.data));
       dispatch(post(data.data));
-      dispatch(post(data.data));
+      dispatch(pages(data.data));
       setIsDispatched(true);
     }
   }, [data, dispatch, isDispatched]);
 
   //PROFILE DETAILS
   const { img, title } = useSelector(selectProfileState);
-  const whoweare = useSelector(selectPageState);
+  const whoweare = useSelector(selectPagesState);
 
   //FEATURED POST DETAILS
   const featuredposts = useSelector(selectPostState);

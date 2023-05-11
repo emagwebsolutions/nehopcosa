@@ -47,15 +47,31 @@ export type serverSideData = {
   data: any;
 };
 
-export type initState = {
+export type postinitState = {
   post: React.ReactNode;
+};
+
+export type bloginitState = {
+  blog: React.ReactNode;
+};
+
+export type postlistsinitState = {
   postlists: poslist[];
-  page: any;
+};
 
+export type pagesinitState = {
+  pages: any;
+};
+
+export type sliderinitState = {
   slider: slides;
+};
 
+export type projectsinitState = {
   projects: React.ReactNode;
+};
 
+export type profileinitState = {
   profile: {
     img: string;
     title: string;
