@@ -21,6 +21,7 @@ function Home() {
     if (data && data.data && !isDispatched) {
       dispatch(slider(data.data));
       dispatch(profile(data.data));
+      dispatch(post(data.data));
 
     }
   }, [data, dispatch, isDispatched]);
