@@ -22,7 +22,7 @@ function Home() {
       dispatch(slider(data.data));
       dispatch(profile(data.data));
 
-      dispatch(pages(data.data));
+  
       setIsDispatched(true);
     }
   }, [data, dispatch, isDispatched]);
