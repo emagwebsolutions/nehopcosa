@@ -11,25 +11,25 @@ import projectsReducer from '@/store/features/projectsSlice'
 import sliderReducer from '@/store/features/sliderSlice'
 
 
-import {blog} from '@/store/features/blogSlice'
-import {pages} from '@/store/features/pagesSlice'
-import {postlists} from '@/store/features/postlistsSlice'
-import {post} from '@/store/features/postSlice'
-import {profile} from '@/store/features/profileSlice'
-import {projects} from '@/store/features/projectsSlice'
-import {slider} from '@/store/features/sliderSlice'
+import {blogSlice} from '@/store/features/blogSlice'
+import {pagesSlice} from '@/store/features/pagesSlice'
+import {postlistsSlice} from '@/store/features/postlistsSlice'
+import {postSlice} from '@/store/features/postSlice'
+import {profileSlice} from '@/store/features/profileSlice'
+import {projectsSlice} from '@/store/features/projectsSlice'
+import {sliderSlice} from '@/store/features/sliderSlice'
 
 /*---------------------------
 BEGIN CREATE STORE
 ---------------------------*/
 const rootReducer: any = combineReducers({
-  [blog.name]: blogReducer,
-  [pages.name]: pagesReducer,
-  [postlists.name]: postlistsReducer,
-  [post.name]: postReducer ,
-  [profile.name]: profileReduceer,
-  [projects.name]: projectsReducer,
-  [slider.name]: sliderReducer,
+  [blogSlice.name]: blogReducer,
+  [pagesSlice.name]: pagesReducer,
+  [postlistsSlice.name]: postlistsReducer,
+  [postSlice.name]: postReducer ,
+  [profileSlice.name]: profileReduceer,
+  [projectsSlice.name]: projectsReducer,
+  [sliderSlice.name]: sliderReducer,
   [fetchData.reducerPath]: fetchData.reducer,
 });
 

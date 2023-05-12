@@ -35,4 +35,4 @@ export default sliderSlice.reducer;
 
 export const { slider } = sliderSlice.actions;
 
-export const selectSliderState = (state: any) => state.sliderdata.slider;
+export const selectSliderState = (state: any) => state?.sliderdata?.slider;

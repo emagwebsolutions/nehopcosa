@@ -39,4 +39,4 @@ export default profileSlice.reducer;
 
 export const { profile } = profileSlice.actions;
 
-export const selectProfileState = (state: any) => state.profiledata.profile;
+export const selectProfileState = (state: any) => state?.profiledata?.profile;

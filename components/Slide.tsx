@@ -3,7 +3,8 @@ import 'react-slideshow-image/dist/styles.css';
 import Image from 'next/image';
 import {slides} from '@/typings'
 import { useSelector } from 'react-redux';
-import { selectSliderState } from '@/store/store';
+import { selectSliderState } from '@/store/features/sliderSlice';
+
 
 const Slide = () => {
   const fadeImages: slides = useSelector(selectSliderState);

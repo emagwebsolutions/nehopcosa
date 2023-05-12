@@ -5,7 +5,7 @@ import PortableText from 'react-portable-text';
 
 // Initial state
 const initialState: pagesinitState = {
-  pages: ''
+  page: ''
 };
 
 export const pagesSlice = createSlice({
@@ -17,7 +17,7 @@ export const pagesSlice = createSlice({
       const arr = payload || [];
       //WHO WE ARE
 
-        state.pages = Object?.values(arr)
+        state.page = Object?.values(arr)
           .filter((v) => {
             return v._type === 'pages';
           })
@@ -63,4 +63,4 @@ export default pagesSlice.reducer;
 
 export const { pages } = pagesSlice.actions;
 
-export const selectPagesState = (state: any) => state.pagesdata.pages;
+export const selectPagesState = (state: any) => state?.pagesdata?.page;

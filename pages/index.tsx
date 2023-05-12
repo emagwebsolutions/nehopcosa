@@ -31,13 +31,17 @@ function Home() {
   }, [data, dispatch, isDispatched]);
 
   //PROFILE DETAILS
-  const { img, title } = useSelector(selectProfileState);
+  const prof = useSelector(selectProfileState);
   const whoweare = useSelector(selectPagesState);
+
+  console.log(whoweare)
 
   //FEATURED POST DETAILS
   const featuredposts = useSelector(selectPostState);
 
   //WHO WE ARE DETAILS
+
+ 
 
   const who = Object.values(whoweare)
     .filter((v: any) => v.slug === 'who-we-are')
@@ -78,8 +82,8 @@ function Home() {
 
           <div className={styles.profile}>
             <div>
-              <Image src={img} alt="" width="196" height="200" />
-              <strong>{title}</strong>
+              <Image src={prof?.img} alt="" width="196" height="200" />
+              <strong>{prof?.title}</strong>
               <br />
               <strong>(C.E.O)</strong>
               <div className={styles.social}>{social}</div>

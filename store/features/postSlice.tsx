@@ -49,4 +49,4 @@ export default postSlice.reducer;
 
 export const { post } = postSlice.actions;
 
-export const selectPostState = (state: any) => state.postdata.post;
+export const selectPostState = (state: any) => state?.postdata?.post;

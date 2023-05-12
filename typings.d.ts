@@ -60,7 +60,7 @@ export type postlistsinitState = {
 };
 
 export type pagesinitState = {
-  pages: any;
+  page: any
 };
 
 export type sliderinitState = {
