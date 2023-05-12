@@ -21,40 +21,7 @@ export const pagesSlice = createSlice({
           .filter((v) => {
             return v._type === 'pages';
           })
-          .map((v) => {
-            const img = v.mainImage ? builder(v.mainImage) : '/noimage.jpg';
-            return {
-              img,
-              title: v.title,
-              text: v.excerpt,
-              body: (
-                <PortableText
-                  className=""
-                  content={v.body}
-                  dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
-                  projectId={process.env.NEXT_PUBLIC_SANITY_PROJECTID}
-                  serializers={{
-                    h1: (props: any) => {
-                      <h1 className="" {...props} />;
-                    },
-                    h2: (props: any) => {
-                      <h2 className="" {...props} />;
-                    },
-                    li: ({ children }: any) => {
-                      <li className="">{children}</li>;
-                    },
-                    link: ({ href, children }: any) => {
-                      <a href={href} className="">
-                        {children}
-                      </a>;
-                    },
-                  }}
-                ></PortableText>
-              ),
-              slug: v.slug?.current,
-            };
-          });
-      
+
     },
   },
 });

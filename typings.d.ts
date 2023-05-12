@@ -52,7 +52,7 @@ export type postinitState = {
 };
 
 export type bloginitState = {
-  blog: React.ReactNode;
+  blog: {}[]
 };
 
 export type postlistsinitState = {
@@ -68,7 +68,7 @@ export type sliderinitState = {
 };
 
 export type projectsinitState = {
-  projects: React.ReactNode;
+  projects: {}[]
 };
 
 export type profileinitState = {

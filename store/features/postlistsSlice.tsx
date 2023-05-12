@@ -27,4 +27,4 @@ export default postlistsSlice.reducer;
 
 export const { postlists } = postlistsSlice.actions;
 
-export const selectPostlists = (state: any) => state?.data?.postlists;
+export const selectPostlists = (state: any) => state?.postlistsdata?.postlists;

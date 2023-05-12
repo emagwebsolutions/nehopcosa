@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 // Initial state
 const initialState: bloginitState = {
-  blog: '',
+  blog: [{}],
 };
 
 export const blogSlice = createSlice({
@@ -21,26 +21,6 @@ export const blogSlice = createSlice({
         .filter((v) => {
           return v._type === 'post';
         })
-        .map((v, k: number) => {
-          return (
-            <div key={k}>
-              <Image
-                width="230"
-                height="170"
-                alt=""
-                src={builder(v.mainImage)}
-              />
-              <div>
-                <h5>{v.title}</h5>
-                <div>{v.excerpt}</div>
-
-                <Link href={`blog/${v.slug?.current}`} className="button">
-                  Learn More
-                </Link>
-              </div>
-            </div>
-          );
-        });
     },
   },
 });

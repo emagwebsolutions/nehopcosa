@@ -10,6 +10,7 @@ import { slider } from '@/store/features/sliderSlice';
 import { profile, selectProfileState } from '@/store/features/profileSlice';
 import { post, selectPostState } from '@/store/features/postSlice';
 import { pages, selectPagesState } from '@/store/features/pagesSlice';
+import PortableText from 'react-portable-text';
 
 function Home() {
   const { data } = useGetpostsQuery('');
@@ -29,24 +30,15 @@ function Home() {
 
   //PROFILE DETAILS
   const prof = useSelector(selectProfileState);
-  const whoweare = useSelector(selectPagesState);
-
-  console.log(whoweare)
 
   //FEATURED POST DETAILS
   const featuredpost = useSelector(selectPostState);
-
 
   const featuredposts = Object.values(featuredpost).map((v: any, k: number) => {
     const img = v.mainImage ? builder(v.mainImage) : '/noimage.jpg';
     return (
       <div key={k}>
-        <Image
-          width="230"
-          height="170"
-          alt=""
-          src={img}
-        />
+        <Image width="230" height="170" alt="" src={img} />
         <div>
           <h5>{v.title}</h5>
           <div>{v.excerpt}</div>
@@ -61,15 +53,43 @@ function Home() {
 
   //WHO WE ARE DETAILS
 
-  
+  const whoweare = useSelector(selectPagesState);
 
   const who = Object.values(whoweare)
-    .filter((v: any) => v.slug === 'who-we-are')
-    .map((v: any) => ({
-      title: v.title,
-      img: v.img,
-      text: v.text,
-    }))[0];
+    .filter((v: any) => v.slug?.current === 'who-we-are')
+    .map((v: any) => {
+      const img = v.mainImage ? builder(v.mainImage) : '/noimage.jpg';
+      return {
+        img,
+        title: v.title,
+        text: v.excerpt,
+        body: (
+          <PortableText
+            className=""
+            content={v.body}
+            dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
+            projectId={process.env.NEXT_PUBLIC_SANITY_PROJECTID}
+            serializers={{
+              h1: (props: any) => {
+                <h1 className="" {...props} />;
+              },
+              h2: (props: any) => {
+                <h2 className="" {...props} />;
+              },
+              li: ({ children }: any) => {
+                <li className="">{children}</li>;
+              },
+              link: ({ href, children }: any) => {
+                <a href={href} className="">
+                  {children}
+                </a>;
+              },
+            }}
+          ></PortableText>
+        ),
+        slug: v.slug?.current,
+      };
+    })[0];
 
   if (data) {
     const social = Object?.values(data.data)
@@ -151,7 +171,7 @@ function Home() {
           <h4>Our Blog</h4>
           <h2>Recent From Blog</h2>
 
-          <div className="container">{featuredposts.slice(0,4)}</div>
+          <div className="container">{featuredposts.slice(0, 4)}</div>
         </section>
       </>
     );
