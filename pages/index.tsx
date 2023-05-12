@@ -20,6 +20,7 @@ function Home() {
   useEffect(() => {
     if (data && data.data && !isDispatched) {
       dispatch(slider(data.data));
+      dispatch(profile(data.data));
 
     }
   }, [data, dispatch, isDispatched]);
