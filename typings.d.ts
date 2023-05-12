@@ -48,7 +48,7 @@ export type serverSideData = {
 };
 
 export type postinitState = {
-  post: React.ReactNode;
+  post: {}[];
 };
 
 export type bloginitState = {

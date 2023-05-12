@@ -21,7 +21,7 @@ function Home() {
     if (data && data.data && !isDispatched) {
       dispatch(slider(data.data));
       dispatch(profile(data.data));
-
+      dispatch(post(data.data));
       dispatch(pages(data.data));
       setIsDispatched(true);
     }
@@ -34,7 +34,28 @@ function Home() {
   console.log(whoweare)
 
   //FEATURED POST DETAILS
-  const featuredposts = useSelector(selectPostState);
+  const featuredpost = useSelector(selectPostState);
+
+  const featuredposts = Object.values(featuredpost).map((v: any, k: number) => {
+    return (
+      <div key={k}>
+        <Image
+          width="230"
+          height="170"
+          alt=""
+          src={builder(v.mainImage)}
+        />
+        <div>
+          <h5>{v.title}</h5>
+          <div>{v.excerpt}</div>
+
+          <Link href={`blog/${v.slug?.current}`} className="button">
+            Learn More
+          </Link>
+        </div>
+      </div>
+    );
+  });
 
   //WHO WE ARE DETAILS
 
