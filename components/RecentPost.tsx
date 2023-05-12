@@ -2,9 +2,13 @@ import { builder } from '@/client/client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useGetpostsQuery } from '@/store/fetchData';
-import { postlists, selectPostlists } from '@/store/store';
+
+
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { postlists } from '@/store/features/postlistsSlice';
+import { selectPostState } from '@/store/features/postSlice';
 
 const RecentPost = () => {
   const { data } = useGetpostsQuery('');
@@ -25,7 +29,7 @@ const RecentPost = () => {
 
 
 
-  const obj = useSelector(selectPostlists)
+  const obj = useSelector(selectPostState)
 
   return (
     <div>

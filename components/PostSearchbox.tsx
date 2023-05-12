@@ -1,8 +1,12 @@
-import { postlists, selectPostlists } from '@/store/store';
+
+
+
 import { useSelector, useDispatch } from 'react-redux';
 import { useGetpostsQuery } from '@/store/fetchData';
 import { ReactHTMLElement, useRef } from 'react';
 import { builder } from '@/client/client';
+import { selectPostState } from '@/store/features/postSlice';
+import { postlists } from '@/store/features/postlistsSlice';
 
 const PostSearchbox = () => {
   const { data } = useGetpostsQuery('');
@@ -12,7 +16,7 @@ const PostSearchbox = () => {
     img: string
     slug: string
     title: string
-  }[] = useSelector(selectPostlists);
+  }[] = useSelector(selectPostState);
 
   const inptRef = useRef<any>();
 
