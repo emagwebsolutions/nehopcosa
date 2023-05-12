@@ -36,14 +36,16 @@ function Home() {
   //FEATURED POST DETAILS
   const featuredpost = useSelector(selectPostState);
 
+
   const featuredposts = Object.values(featuredpost).map((v: any, k: number) => {
+    const img = v.mainImage ? builder(v.mainImage) : '/noimage.jpg';
     return (
       <div key={k}>
         <Image
           width="230"
           height="170"
           alt=""
-          src={builder(v.mainImage)}
+          src={img}
         />
         <div>
           <h5>{v.title}</h5>
@@ -59,7 +61,7 @@ function Home() {
 
   //WHO WE ARE DETAILS
 
- 
+  
 
   const who = Object.values(whoweare)
     .filter((v: any) => v.slug === 'who-we-are')
@@ -149,7 +151,7 @@ function Home() {
           <h4>Our Blog</h4>
           <h2>Recent From Blog</h2>
 
-          <div className="container">{featuredposts.slice(0, 4)}</div>
+          <div className="container">{featuredposts.slice(0,4)}</div>
         </section>
       </>
     );
