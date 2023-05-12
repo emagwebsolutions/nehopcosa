@@ -20,10 +20,7 @@ function Home() {
   useEffect(() => {
     if (data && data.data && !isDispatched) {
       dispatch(slider(data.data));
-      dispatch(profile(data.data));
-      dispatch(post(data.data));
-      dispatch(pages(data.data));
-      setIsDispatched(true);
+
     }
   }, [data, dispatch, isDispatched]);
 
